@@ -15,8 +15,8 @@ namespace buildings {
         Building(const std::string& name, int floors)
             : name(name), floors(floors) {}
 
-        // Виртуальный деструктор (важен для полиморфизма)
-        virtual ~Building() {}
+        // Виртуальный деструктор
+        virtual ~Building() = default;
 
         // Виртуальный метод, который будет переопределяться в потомках
         virtual void info() const {
