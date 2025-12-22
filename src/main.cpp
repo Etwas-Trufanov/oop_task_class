@@ -11,11 +11,10 @@ int main() {
     // Создаём объекты разных типов
     std::vector<std::unique_ptr<buildings::Building>> array;
 
-    array.push_back(std::make_unique<buildings::House>("Гигахрущ", 99999, 10));
-    array.push_back(std::make_unique<buildings::Factory>("Пивзавод \"Читинские Ключи\"", 99999, 10));
-    array.push_back(std::make_unique<buildings::House>("Гигахрущ", 99999, 10));
+    array.push_back(std::make_unique<buildings::House>("Гигахрущ", 2000, 10));
+    array.push_back(std::make_unique<buildings::Factory>("Пивзавод \"Читинские Ключи\"", 100, 900));
+    array.push_back(std::make_unique<buildings::Warehouse>("Склад пива", 1, 10000000));
 
-    // ===== Пример полиморфизма =====
     // Вызываются версии методов соответствующих реальному типу объекта
     for (const auto& b : array) {
             b->info();
