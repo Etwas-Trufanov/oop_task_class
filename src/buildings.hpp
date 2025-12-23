@@ -28,6 +28,9 @@ namespace buildings {
         virtual double getMaintenanceCost() const {
             return floors * 1000.0; // базовая стоимость обслуживания
         }
+
+        // Геттер имени
+        std::string getName() const { return name; }
     };
 
     // Производный класс "Жилой дом"
@@ -50,6 +53,10 @@ namespace buildings {
         double getMaintenanceCost() const override {
             return floors * 1200.0 + apartments * 100.0;
         }
+
+
+
+        // Этот метод уже будет доступен во всех производных классах благодаря наследованию
     };
 
     // Производный класс "Завод"
