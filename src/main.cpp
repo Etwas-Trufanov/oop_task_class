@@ -39,6 +39,7 @@ int main() {
     // Создаём объекты разных типов
     std::vector<std::unique_ptr<buildings::Building>> array;
 
+    // Ччуть про запись в массив разных классов, про полиморфизм
     array.push_back(std::make_unique<buildings::House>("Гигахрущ", 200, 10));
     array.push_back(std::make_unique<buildings::Factory>("Яндекс AI", 100, 90));
     array.push_back(std::make_unique<buildings::Warehouse>("Склад DDR5", 1, 10000));
@@ -89,6 +90,10 @@ int main() {
     } catch (std::runtime_error &e) {
         std::cerr << "Произошла ошибка в увольнении работяг: " << e.what() << std::endl;
     }
+
+    buildings::House *house = dynamic_cast<buildings::House*>(array[0].get());
+    std::cout << "Выводим метод str_info жилого дома:" << house->str_info() << std::endl;
+    std::cout << "Выводим метод str_info базового здания:" << house->Building::str_info();
 
     return 0;
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <string>
 
 namespace buildings {
@@ -13,16 +14,24 @@ namespace buildings {
 
     public:
         // Конструктор
+        // Добавить проверки
         Building(const std::string& name, int floors)
             : name(name), floors(floors) {}
 
-        // Виртуальный деструктор
+        // Виртуальный деструктор, автоматически генерируется компилятором
         virtual ~Building() = default;
 
         // Виртуальный метод, который будет переопределяться в потомках
         virtual void info() const {
             std::cout << "Здание: " << name
                  << ", этажей: " << floors << std::endl;
+        }
+
+        virtual std::string str_info() const {
+            std::stringstream a;
+            a << "Здание: " << name
+            << ", этажей: " << floors << std::endl;
+            return a.str();
         }
 
         // Ещё один виртуальный метод
@@ -44,10 +53,19 @@ namespace buildings {
             : Building(name, floors), apartments(apartments) {}
 
         // Переопределение метода info()
+        // Это переопределение, для доступа к базовому методу нужно разрешить область вызова
         void info() const override {
             std::cout << "Жилой дом: " << name
                  << ", этажей: " << floors
                  << ", квартир: " << apartments << std::endl;
+        }
+
+        std::string str_info() const override {
+            std::stringstream a;
+            a << "Жилой дом: " << name
+            << ", этажей: " << floors
+            << ", квартир: " << apartments << std::endl;
+            return a.str();
         }
 
         // Переопределение стоимости обслуживания
@@ -73,6 +91,14 @@ namespace buildings {
                  << ", рабочих: " << workers << std::endl;
         }
 
+        std::string str_info() const override {
+            std::stringstream a;
+            a << "Завод: " << name
+            << ", этажей: " << floors
+            << ", рабочих: " << workers << std::endl;
+            return a.str();
+        }
+
         // Переопределённый метод получения стоимости
         double getMaintenanceCost() const override {
             return floors * 2000.0 + workers * 50.0;
@@ -95,9 +121,17 @@ namespace buildings {
 
         // Переопределённый метод информации
         void info() const override {
-        std::cout << "Склад: " << name
-                << ", этажей: " << floors
-                << ", площадь: " << area << " м^2" << std::endl;
+            std::cout << "Склад: " << name
+                      << ", этажей: " << floors
+                      << ", площадь: " << area << " м^2" << std::endl;
+        }
+
+        std::string str_info() const override {
+            std::stringstream a;
+            a << "Склад: " << name
+            << ", этажей: " << floors
+            << ", площадь: " << area << " м^2" << std::endl;
+            return a.str();
         }
 
         // Переопределённый метод получения стоимости
