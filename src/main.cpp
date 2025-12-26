@@ -80,8 +80,11 @@ int main() {
         std::cout << "\n=== Повышаем безработицу ===\n";
         buildings::Factory *factory = dynamic_cast<buildings::Factory*>(array[3].get());
         if (factory != nullptr) {
-            factory->fire_all_workers();
+            factory->fireAllWorkers();
             std::cout << "Работяги с завода " << factory->getName() << " уволены! :3\n";
+        } else {
+            // dynamic_cast при невозможности привести тип просто возвращает nullptr
+            throw std::runtime_error("Здание по индексу 3 не является заводом");
         }
     } catch (std::runtime_error &e) {
         std::cerr << "Произошла ошибка в увольнении работяг: " << e.what() << std::endl;

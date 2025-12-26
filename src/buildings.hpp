@@ -78,7 +78,8 @@ namespace buildings {
             return floors * 2000.0 + workers * 50.0;
         }
 
-        void fire_all_workers() {
+        // Метод увольнения всех работяг
+        void fireAllWorkers() {
             workers = 0;
         }
     };
