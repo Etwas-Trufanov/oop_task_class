@@ -18,6 +18,7 @@ void processFactory(const std::unique_ptr<buildings::Building>& building) {
         std::cout << "======================" << std::endl << std::endl;
     }
 }
+
 // Функция подсчёта типов
 template<typename T>
 int countBuildingType(const std::vector<std::unique_ptr<buildings::Building>>& buildings) {
@@ -39,9 +40,12 @@ int main() {
     std::vector<std::unique_ptr<buildings::Building>> array;
 
     array.push_back(std::make_unique<buildings::House>("Гигахрущ", 200, 10));
-    array.push_back(std::make_unique<buildings::Factory>("Пивзавод \"Читинские Ключи\"", 100, 90));
-    array.push_back(std::make_unique<buildings::Warehouse>("Склад пива", 1, 10000));
-    array.push_back(std::make_unique<buildings::Factory>("Металлургический завод", 50, 200));
+    array.push_back(std::make_unique<buildings::Factory>("Яндекс AI", 100, 90));
+    array.push_back(std::make_unique<buildings::Warehouse>("Склад DDR5", 1, 10000));
+    array.push_back(std::make_unique<buildings::Factory>("Бобровый завод", 50, 200));
+    array.push_back(std::make_unique<buildings::Warehouse>("Склад бобров", 3, 10000));
+    array.push_back(std::make_unique<buildings::Warehouse>("Склад старых маков", 1, 10000));
+    array.push_back(std::make_unique<buildings::Warehouse>("Склад кваса", 10, 10));
 
     // Вызываются версии методов соответствующих реальному типу объекта
     for (const auto& b : array) {
@@ -63,10 +67,24 @@ int main() {
 
     std::cout << "\n=== ОБРАБОТКА СКЛАДОВ ===" << std::endl;
     for (const auto& b : array) {
+        // Получаем указатель на склад
         buildings::Warehouse* warehouse = dynamic_cast<buildings::Warehouse*>(b.get());
         if (warehouse != nullptr) {
+            // Выводим то что в векторе нашли склад
             std::cout << "Склад обнаружен: " << warehouse->getName() << std::endl;
         }
+    }
+
+    // Увольняем всех с завода
+    try {
+        std::cout << "\n=== Повышаем безработицу ===\n";
+        buildings::Factory *factory = dynamic_cast<buildings::Factory*>(array[3].get());
+        if (factory != nullptr) {
+            factory->fire_all_workers();
+            std::cout << "Работяги с завода " << factory->getName() << " уволены! :3\n";
+        }
+    } catch (std::runtime_error &e) {
+        std::cerr << "Произошла ошибка в увольнении работяг: " << e.what() << std::endl;
     }
 
     return 0;

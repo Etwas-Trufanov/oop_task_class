@@ -5,6 +5,7 @@
 
 namespace buildings {
 
+    // базовый класс здания
     class Building {
     protected:
         std::string name;   // название здания
@@ -33,7 +34,7 @@ namespace buildings {
         std::string getName() const { return name; }
     };
 
-    // Производный класс "Жилой дом"
+    // Наследник класс "Жилой дом"
     class House : public Building {
     private:
         int apartments; // количество квартир
@@ -54,9 +55,6 @@ namespace buildings {
             return floors * 1200.0 + apartments * 100.0;
         }
 
-
-
-        // Этот метод уже будет доступен во всех производных классах благодаря наследованию
     };
 
     // Производный класс "Завод"
@@ -68,14 +66,20 @@ namespace buildings {
         Factory(const std::string& name, int floors, int workers)
             : Building(name, floors), workers(workers) {}
 
+        // Переопределённый метод информации
         void info() const override {
             std::cout << "Завод: " << name
                  << ", этажей: " << floors
                  << ", рабочих: " << workers << std::endl;
         }
 
+        // Переопределённый метод получения стоимости
         double getMaintenanceCost() const override {
             return floors * 2000.0 + workers * 50.0;
+        }
+
+        void fire_all_workers() {
+            workers = 0;
         }
     };
 
@@ -88,15 +92,18 @@ namespace buildings {
         Warehouse(const std::string& name, int floors, double area)
             : Building(name, floors), area(area) {}
 
+        // Переопределённый метод информации
         void info() const override {
-            std::cout << "Склад: " << name
-                 << ", этажей: " << floors
-                 << ", площадь: " << area << " м^2" << std::endl;
+        std::cout << "Склад: " << name
+                << ", этажей: " << floors
+                << ", площадь: " << area << " м^2" << std::endl;
         }
 
+        // Переопределённый метод получения стоимости
         double getMaintenanceCost() const override {
             return floors * 1500.0 + area * 10.0;
         }
+
     };
 
 }
